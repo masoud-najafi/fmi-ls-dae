@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/modelica/fmi-standard/v3.0.2/schema/fmi3ModelDescription.xsd"
+  fmiVersion="3.0"
+  modelName="Mass Spring Oscillator"
+  description="Undamped mass-spring oscillator, an ODE with the total mechanical energy as invariant"
+  generationTool="Reference FMUs (development build)"
+  instantiationToken="{9B6E0A3D-27C5-4F1B-8E7A-1D4C6F08B932}">
+
+  <ModelExchange
+    modelIdentifier="MassSpringOscillator"
+    canGetAndSetFMUState="true"
+    canSerializeFMUState="true"
+    providesDirectionalDerivatives="false"
+    providesAdjointDerivatives="false" />
+
+  <LogCategories>
+    <Category name="logEvents" description="Log events" />
+    <Category name="logStatusError" description="Log error messages" />
+  </LogCategories>
+
+  <DefaultExperiment startTime="0" stopTime="20.0" stepSize="1e-3" />
+
+  <ModelVariables>
+    <Float64
+      name="time"
+      valueReference="0"
+      causality="independent" />
+    <Float64
+      name="x"
+      valueReference="1"
+      initial="exact"
+      start="1.0"
+      description="Displacement of the mass from the equilibrium position" />
+    <Float64
+      name="der(x)"
+      valueReference="2"
+      derivative="1" />
+    <Float64
+      name="v"
+      valueReference="3"
+      initial="exact"
+      start="0.0"
+      description="Velocity of the mass" />
+    <Float64
+      name="der(v)"
+      valueReference="4"
+      derivative="3" />
+    <Float64
+      name="F"
+      valueReference="5"
+      initial="approx"
+      start="-1.0"
+      description="Restoring force of the spring" />
+    <Float64
+      name="m"
+      valueReference="6"
+      causality="parameter"
+      variability="fixed"
+      initial="exact"
+      start="1.0"
+      description="Mass" />
+    <Float64
+      name="k"
+      valueReference="7"
+      causality="parameter"
+      variability="fixed"
+      initial="exact"
+      start="1.0"
+      description="Spring constant" />
+    <Float64
+      name="E"
+      valueReference="8"
+      causality="output"
+      variability="continuous"
+      description="Total mechanical energy, an invariant of the model" />
+    <Float64
+      name="__residual0"
+      valueReference="9"
+      causality="local"
+      variability="continuous"
+      description="residual equation" />
+    <Boolean
+      name="ODE_DAE_Switch"
+      valueReference="10"
+      causality="structuralParameter"
+      variability="tunable"
+      start="false"
+      description="Set to true to enable DAE mode as defined by FMI-LS-DAE." />
+  </ModelVariables>
+
+  <ModelStructure>
+    <!-- E = m/2*v^2 + k/2*x^2
+         deps: x(vr=1), v(vr=3) -->
+    <Output valueReference="8"
+      dependencies="1 3"
+      dependenciesKind="dependent dependent" />
+    <!-- der(x) = v
+         deps: v(vr=3) -->
+    <ContinuousStateDerivative valueReference="2"
+      dependencies="3"
+      dependenciesKind="dependent" />
+    <!-- der(v) = F/m
+         In ODE mode F is resolved to -k*x, so the direct dependency is:
+         x(vr=1) -->
+    <ContinuousStateDerivative valueReference="4"
+      dependencies="1"
+      dependenciesKind="dependent" />
+    <!-- der(x) at initialization — same dependencies as in ContinuousTimeMode -->
+    <InitialUnknown valueReference="2"
+      dependencies="3"
+      dependenciesKind="dependent" />
+    <!-- der(v) at initialization — same dependencies as in ContinuousTimeMode -->
+    <InitialUnknown valueReference="4"
+      dependencies="1"
+      dependenciesKind="dependent" />
+    <!-- E at initialization — same dependencies as Output -->
+    <InitialUnknown valueReference="8"
+      dependencies="1 3"
+      dependenciesKind="dependent dependent" />
+  </ModelStructure>
+</fmiModelDescription>

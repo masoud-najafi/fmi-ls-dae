@@ -1,0 +1,31 @@
+:stem: latexmath
+
+[#ode-with-invariants]
+=== ODE with Invariants
+
+Many models possess quantities that remain constant along the exact solution, such as the total energy of a closed mechanical system, the total mass in a chemical reaction, or the distance between two bodies connected by a rigid rod.
+Such quantities are called *invariants* of the model.
+
+Invariants also arise from index reduction.
+Many physical systems, for example in multibody dynamics, are naturally modeled as high-index DAEs.
+Reducing the index removes algebraic constraints from the equations that are actually solved, and those constraints become invariants of the reduced system.
+
+Numerical integration does not preserve invariants exactly.
+Even when the initial values satisfy an invariant, the accumulated error of the integration makes the computed solution *drift* away from the manifold defined by that invariant.
+Exposing the invariants allows an importer to monitor this drift and to correct for it.
+See <<invariants-background>> for a detailed discussion of numerical drift and of the correction methods an importer can apply.
+
+A model with invariants is described by the equations of <<mathematical-formulation>>, together with
+
+[latexmath]
+++++
+\mathbf{c} = \mathbf{f}_{\mathit{inv}}(\mathbf{x}_c, \mathbf{a}_c, \mathbf{u}_c, \mathbf{p}, t)
+++++
+
+where latexmath:[\mathbf{f}_{\mathit{inv}}] denotes the invariants of the model and latexmath:[\mathbf{c}] is constant along the exact solution.
+
+The invariants of an ODE or of a semi-explicit DAE are exposed as variables of the https://fmi-standard.org/docs/3.0.2/#modelDescription.xml[`modelDescription.xml`] and are listed in the <<Invariant>> element of the extended <<ModelStructure>>, see <<layered-standard-manifest-file>>.
+An invariant can be scalar or vectorial.
+Invariants are independent of the <<Residual, residuals>>, and the same variable may be referenced by both an <<Invariant>> and a <<Residual>> element.
+
+The FMU can optionally also expose the correction latexmath:[\boldsymbol{\delta} = \tilde{\mathbf{x}}_c - \mathbf{x}_c] between the integrated state latexmath:[\mathbf{x}_c] and the state latexmath:[\tilde{\mathbf{x}}_c] projected back onto the invariant manifold.

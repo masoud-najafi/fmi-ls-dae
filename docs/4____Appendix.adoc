@@ -9,3 +9,5 @@ include::4_1_2_indices.adoc[]
 include::4_1_3_dae_example.adoc[]
 
 include::4_2__dae_mode.adoc[]
+
+include::4_3__ode_with_invariants_background.adoc[]

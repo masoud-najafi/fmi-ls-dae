@@ -8,21 +8,21 @@ Usage:
     python merge_fmus.py
 
 Expected directory layout (created by the GitHub Actions workflow):
-    dist-x86_64-linux/SimpleDAE.fmu
-    dist-aarch64-linux/SimpleDAE.fmu
-    dist-x86_64-windows/SimpleDAE.fmu
-    dist-aarch64-windows/SimpleDAE.fmu
-    dist-x86_64-darwin/SimpleDAE.fmu
-    dist-aarch64-darwin/SimpleDAE.fmu
+    dist-x86_64-linux/<name>.fmu
+    dist-aarch64-linux/<name>.fmu
+    dist-x86_64-windows/<name>.fmu
+    dist-aarch64-windows/<name>.fmu
+    dist-x86_64-darwin/<name>.fmu
+    dist-aarch64-darwin/<name>.fmu
 
 Output:
-    dist-merged/SimpleDAE.fmu
+    dist-merged/<name>.fmu
 """
 
 import os
 import zipfile
 
-FMU_NAMES = ["SimpleDAE"]
+FMU_NAMES = ["SimpleDAE", "MassSpringOscillator"]
 
 PLATFORMS = [
     "x86_64-linux",

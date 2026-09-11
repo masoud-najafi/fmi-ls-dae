@@ -115,3 +115,8 @@ jobs:
       run: pytest .ci/reference-FMUs/test_simple_dae.py -v
       env:
         SIMPLE_DAE_FMU: fmus/SimpleDAE.fmu
+
+    - name: Simulate and verify MassSpringOscillator in ODE mode
+      run: pytest .ci/reference-FMUs/test_mass_spring_oscillator.py -v
+      env:
+        MASS_SPRING_OSCILLATOR_FMU: fmus/MassSpringOscillator.fmu

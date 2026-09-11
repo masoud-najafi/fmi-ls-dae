@@ -24,7 +24,19 @@ Released versions of this layered standard are tagged and listed on the
 
 ## Reference FMUs
 
-FMUs implementing this layered standard are maintained in the
+This repository ships its own reference FMUs in [`reference-FMUs`][reference-fmus-dir].
+They are built for all supported platforms by CI and can be
+[downloaded as an artifact][fmus-download]:
+
+* [`SimpleDAE`][simple-dae] -- a semi-explicit index-1 DAE with two
+  differential states, two algebraic variables, two inputs and two outputs.
+* [`MassSpringOscillator`][mass-spring-oscillator] -- an undamped mass-spring
+  oscillator, written as a semi-explicit index-1 DAE with the spring force as
+  the algebraic variable. Its total mechanical energy is exposed as an
+  `<Invariant>`, which makes it the worked example for invariants and the
+  numerical drift they are meant to detect.
+
+Further FMUs implementing this layered standard are maintained in the
 [modelica/Reference-FMUs][reference-fmus] repository. Currently there is only
 one:
 
@@ -53,6 +65,8 @@ See [CONTRIBUTING.md][contributing-file].
 ### Repository Structure
 
 * `docs` -- Sources of the specification document
+* `examples` -- Example models and layered standard manifests
+* `reference-FMUs` -- Sources of the reference FMUs of this repository
 * `schema` -- XSD schema for this FMI Layered Standard
 
 ### Private Sandbox
@@ -68,6 +82,9 @@ For development there is a private sandbox
 [latest-release]: https://github.com/modelica/fmi-ls-dae/releases/latest
 [FMI]: https://fmi-standard.org/
 [reference-fmus]: https://github.com/modelica/Reference-FMUs
+[reference-fmus-dir]: reference-FMUs
+[simple-dae]: reference-FMUs/SimpleDAE
+[mass-spring-oscillator]: reference-FMUs/MassSpringOscillator
 [roberts]: https://github.com/modelica/Reference-FMUs/tree/main/Roberts
 [contributing-file]: CONTRIBUTING.md
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause

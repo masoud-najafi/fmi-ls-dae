@@ -108,9 +108,10 @@ NOTE: In the core Model Exchange standard there exists the API function https://
 
 The structure of the model for the DAE-formulation is defined in element <<ModelStructure>>.
 It defines the <<model-dependencies,dependencies>> between variables.
-The <<ModelStructure>> element is extended with an additional element - <<Residual>> - and the optional dependencies can now include algebraic variables.
+The <<ModelStructure>> element is extended with two additional elements - <<Residual>> and <<Invariant>> - and the optional dependencies can now include algebraic variables.
 
 An FMU that follows this layered standard must expose all residuals using the <<Residual>> element.
+Invariants of the model can optionally be exposed using the <<Invariant>> element.
 
 The <<ModelStructure>> defined here extends the one from the core FMI standard.
 All elements defined in the core standard (https://fmi-standard.org/docs/3.0.2/#Output[`<Output>`], https://fmi-standard.org/docs/3.0.2/#ContinuousStateDerivative[`<ContinuousStateDerivative>`], https://fmi-standard.org/docs/3.0.2/#ClockedState[`<ClockedState>`], https://fmi-standard.org/docs/3.0.2/#InitialUnknown[`<InitialUnknown>`], https://fmi-standard.org/docs/3.0.2/#EventIndicator[`<EventIndicator>`]) retain their existing semantics in this manifest, with the additions that:
@@ -118,9 +119,9 @@ All elements defined in the core standard (https://fmi-standard.org/docs/3.0.2/#
 * Each element's `dependencies` attribute may now also reference <<AlgebraicVariable, algebraic variables>>.
 * The https://fmi-standard.org/docs/3.0.2/#InitialUnknown[`<InitialUnknown>`] element is expanded so that <<AlgebraicVariable, algebraic variables>> can be included as unknowns.
 
-The <<ModelStructure>> element is extended with one additional element, <<Residual>>, described below.
+The <<ModelStructure>> element is extended with two additional elements, <<Residual>> and <<Invariant>>, described below.
 
-.Additional ModelStructure element.
+.Additional ModelStructure elements.
 [#table-model-structure-dae-element]
 [cols="1,5a",options="header"]
 |====
@@ -132,6 +133,15 @@ The <<ModelStructure>> element is extended with one additional element, <<Residu
 Ordered list of residual equations (constraints). Each residual element must reference a unique variable present in the https://fmi-standard.org/docs/3.0.2/#ModelVariables[`<ModelVariables>`] of the https://fmi-standard.org/docs/3.0.2/#modelDescription.xml[`modelDescription.xml`]. It is the importer's responsiblity to find the values of the <<AlgebraicVariables, algebraic variables>> such that the residuals are 0.
 The functional dependency is defined as: +
 latexmath:[{0 := \mathbf{f}_{\mathit{res}}(\mathbf{x}_c, \mathbf{a}_c, \mathbf{u}_c, \mathbf{p}, t)}]
+
+|`Invariant`
+|[[Invariant,`<Invariant>`]]
+Ordered list of invariants of the model, see <<ode-with-invariants>>.
+Each `<Invariant>` element references the variable that computes an invariant of the FMU, which must be present in the https://fmi-standard.org/docs/3.0.2/#ModelVariables[`<ModelVariables>`] of the https://fmi-standard.org/docs/3.0.2/#modelDescription.xml[`modelDescription.xml`]. The invariant can be scalar or vectorial.
+Invariants are independent of the <<Residual, residuals>>, and the same variable may also be referenced by a <<Residual>> element.
+The dependencies on continuous states, inputs, algebraic variables, and parameters can optionally be included <<MN2018>>.
+The functional dependency is defined as: +
+latexmath:[{\mathit{const} := \mathbf{f}_{\mathit{inv}}(\mathbf{x}_c, \mathbf{a}_c, \mathbf{u}_c, \mathbf{p}, t)}]
 |====
 
 .Attributes to `<<Residual>>` element.
