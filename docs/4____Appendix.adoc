@@ -1,0 +1,11 @@
+== Appendix
+
+This appendix contains some general notes and discussions on the topic of DAEs.
+
+include::4_1_1_dae_representation.adoc[]
+
+include::4_1_2_indices.adoc[]
+
+include::4_1_3_dae_example.adoc[]
+
+include::4_2__dae_mode.adoc[]

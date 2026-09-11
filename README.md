@@ -15,7 +15,7 @@ ModelExchange.
 ## FMI-LS-DAE Standard
 
 This [FMI 3.0 Layered Standard][spec] for DAE export is currently maintained on
-[GitHub][githubspec] and is published here.
+[GitHub][githubspec] and is published [here][spec].
 
 ## Repository Structure
 

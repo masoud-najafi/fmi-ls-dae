@@ -10,32 +10,23 @@ An importer that is aware of this layered standard must explicitly switch the FM
 
 Switching between ODE and DAE behavior is controlled by a https://fmi-standard.org/docs/3.0.2/#structuralParameter[structural parameter] called `enableDAEModeParameter`.
 
-A structural parameter (`causality = structuralParameter`) may only be set during https://fmi-standard.org/docs/3.0.2/#ConfigurationMode[Configuration Mode] or https://fmi-standard.org/docs/3.0.2/#ReconfigurationMode[Reconfiguration Mode].
+A structural parameter (`causality = structuralParameter`) may only be set during https://fmi-standard.org/docs/3.0.2/#ConfigurationMode[*Configuration Mode*] or https://fmi-standard.org/docs/3.0.2/#ReconfigurationMode[*Reconfiguration Mode*].
 This constraint ensures that the importer can re-examine the model structure from the manifest and reinitialize its solver before any computation takes place.
 
-The variable `enableDAEModeParameter` is declared in the `modelDescription.xml` as follows:
+The variable `enableDAEModeParameter` is declared in the https://fmi-standard.org/docs/3.0.2/#modelDescription.xml[`modelDescription.xml`] as a `Boolean` under https://fmi-standard.org/docs/3.0.2/#ModelVariables[`<ModelVariables>`]. The `name` and `valueReference` is assigned freely by the FMU exporter; the importer locates the parameter by its `valueReference` declared in the <<EnableDAEParameter>> element of `fmi-ls-manifest.xml`.
+The `description` attribute is optional.
+
+An example of how the `enableDAEModeParameter` is declared:
 
 [source,xml]
 ----
-<Boolean name="<free to choose>"
-         valueReference="<free to choose>"
+<Boolean name="enableDAE"
+         valueReference="123"
          causality="structuralParameter"
-         variability="tunable|fixed"
+         variability="tunable"
          start="false"
          description="Set to true to enable DAE mode as defined by FMI-LS-DAE."/>
 ----
-
-and must be referenced by value reference within the FMI-LS-DAE manifest file via the <<EnableDAEParameter>> element, see <<layered-standard-manifest-file>>.
-
-The `name` and `valueReference` is assigned freely by the FMU exporter; the importer locates the parameter by its `valueReference` declared in the <<EnableDAEParameter>> element of `fmi-ls-manifest.xml`.
-The `description` attribute is optional.
-The `variability` must be either `tunable` or `fixed`:
-
-* `fixed` — the mode can only be set in https://fmi-standard.org/docs/3.0.2/#ConfigurationMode[Configuration Mode] (before `fmi3EnterInitializationMode`).
-  Use this when the FMU does not support switching modes at runtime.
-* `tunable` — the mode can additionally be changed in https://fmi-standard.org/docs/3.0.2/#ReconfigurationMode[Reconfiguration Mode] during simulation.
-
-The structural parameter `enableDAEModeParameter` must not be referenced in `<Dimension>` elements.
 
 .`enableDAEModeParameter` structural parameter values.
 [[table-dae-mode-parameter]]
@@ -66,6 +57,12 @@ The typical flow for an importer that uses the FMU in DAE mode from the start is
 . Call `fmi3SetBoolean(instance, {vr}, 1, {true}, 1)` to enable DAE mode, where `vr` is the `valueReference` of `enableDAEModeParameter`.
 . Call `fmi3ExitConfigurationMode(instance)` to return to the https://fmi-standard.org/docs/3.0.2/#InstantiatedState[Instantiated] state.
 . Continue with the normal FMI initialization sequence (`fmi3EnterInitializationMode`, etc.).
+
+It should be emphasized that initialization in DAE mode is not yet fully specified. This means that when the FMU is initalized in DAE mode, either
+
+* the FMU will lift the <<Residual, residual>> equations to be solved by the importer, or
+* the FMU will still initialize in ODE mode, or
+* the FMU will error out.
 
 ===== During Simulation (Reconfiguration Mode)
 

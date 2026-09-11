@@ -1,6 +1,8 @@
 [#mathematical-notation]
 === Mathematical Notation
 
+This layered standard uses the same mathematical notation as provided in the FMI 3.0 standard under sub-section https://fmi-standard.org/docs/3.0.2/#mathematical-definitions[Mathematical Notation], with the addition of the symbols introduced here.
+
 .Additional symbols for specific variable types.
 [#table-variable-types]
 [cols="1,8",options="header"]
@@ -10,9 +12,3 @@
 |[[algebraic,algebraic variables]]latexmath:[\mathbf{a}_c]
 |A vector of real continuous-time variables representing the continuous-time <<AlgebraicVariable, algebraic variables>>.
 |====
-
-include::2_1_1_dae_representation.adoc[]
-
-include::2_1_2_indices.adoc[]
-
-include::2_1_3_dae_example.adoc[]

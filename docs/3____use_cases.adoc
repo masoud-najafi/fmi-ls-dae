@@ -1,3 +1,0 @@
-== Use Cases
-
-include::3_1__dae_mode.adoc[]

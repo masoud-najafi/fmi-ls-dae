@@ -86,3 +86,35 @@
 
 * [[[PW13]]]
   Preston-Werner, T. (2013): **Semantic Versioning 2.0.0**.  https://semver.org/spec/v2.0.0.html
+
+// @incollection{Robertson1966,
+//   author    = {H. H. Robertson},
+//   title     = {The Solution of a Set of Reaction Rate Equations},
+//   editor    = {J. Walsh},
+//   booktitle = {Numerical Analysis: An Introduction},
+//   pages     = {178--182},
+//   publisher = {Academic Press},
+//   year      = {1966}
+// }
+
+* [[[Robertson1966]]]
+  Robertson, H. H.
+  "The Solution of a Set of Reaction Rate Equations".
+  In: J. Walsh (ed.), _Numerical Analysis: An Introduction_,
+  pp. 178–182. Academic Press, 1966.
+
+// @techreport{Hindmarsh2026IDAExamples,
+//   author      = {Alan C. Hindmarsh and Radu Serban and Aaron Collier},
+//   title       = {Example Programs for IDA v7.8.0},
+//   institution = {Lawrence Livermore National Laboratory},
+//   number      = {UCRL-SM-208113},
+//   year        = {2026},
+//   month       = jun,
+//   url         = {https://github.com/LLNL/sundials/releases/download/v7.8.0/ida_examples.pdf}
+// }
+
+* [[[Hindmarsh2026IDAExamples]]]
+  Hindmarsh, Alan C., Radu Serban, and Aaron Collier.
+  _Example Programs for IDA v7.8.0_.
+  Technical Report UCRL-SM-208113.
+  Lawrence Livermore National Laboratory, 2026.

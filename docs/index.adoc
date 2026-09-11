@@ -3,7 +3,7 @@
 :sectnumlevels: 5
 :toc: left
 :toc-title: Contents
-:toclevels: 5
+:toclevels: 3
 :idprefix:
 :idseparator: -
 :xrefstyle: short
@@ -18,8 +18,8 @@
 :repo-url: https://github.com/modelica/fmi-ls-dae
 :logo: FMI
 :favicon: images/favicon.ico
-:revdate: 30.09.2025
-:revnumber: 0.0.0
+:revdate: 04.09.2026
+:revnumber: 1.0.0-alpha.1
 
 {empty} +
 {empty}
@@ -32,8 +32,8 @@ include::1____introduction.adoc[]
 
 include::2____common_concepts.adoc[]
 
-include::3____use_cases.adoc[]
+include::3____layeredManifest.adoc[]
 
-include::4___layeredManifest.adoc[]
+include::4____Appendix.adoc[]
 
 include::5____literature.adoc[]
